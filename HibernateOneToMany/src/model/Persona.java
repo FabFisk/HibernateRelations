@@ -5,6 +5,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 @Entity
 public class Persona {
 	
@@ -13,8 +16,10 @@ public class Persona {
 	private long id;
 	private String nome;
 	private String cognome;
-		
-	@OneToMany (mappedBy="persona", cascade=CascadeType.ALL) //insieme al ManyToOne...stesso scopo
+				
+				//insieme al ManyToOne...stesso scopo
+	@OneToMany (fetch=FetchType.EAGER, mappedBy="persona", cascade=CascadeType.ALL)
+	@NotFound(action=NotFoundAction.IGNORE)
 	private Set<Computer> computers;
 	
 	
